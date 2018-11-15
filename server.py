@@ -10,9 +10,14 @@ from service import EventCreationService, BookEventService, CancelBookingService
 config = ConfigParser()
 config.read('config.ini')
 
+class ConfigContext(object):
+    def __init__(self):
+        self.ticket_url = config["TicketService"]["base_url"]
+        self.payment_url = config["PaymentService"]["base_url"]
+
+
 def _on_method_call(ctx):
-  ctx.ticket_url = config["TicketService"]["base_url"]
-  ctx.payment_url = config["PaymentService"]["base_url"]
+  ctx.udc = ConfigContext()
 
 EventCreationService.event_manager.add_listener('method_call', _on_method_call)
 application = Application([EventCreationService], 'ticketx.test.soap',

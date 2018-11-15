@@ -22,10 +22,8 @@ class BookEventService(ServiceBase):
         if (create_invoice_resp.ok):
           invoice_json = create_invoice_resp.json()
           return invoice_json["id"]
-
       else:
         return -1
-
     else:
       return -1
   
